@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+  <title>react sample</title>
+</head>
+<body>
+  <div id="content"></div>
+
+  <script type="text/javascript">
+    var l = console.log;
+  </script>
+  <script type="text/babel">
+    var Box = React.createClass({
+      getInitialState: function(){
+        return {
+          data: [
+            {id: 1, selected: false},
+            {id: 2, selected: false},
+          ]
+        }
+      },
+      handleSelect: function(id){
+        var nextState = this.state.data.map(function(item){
+          return {
+            id: item.id,
+            selected: (item.id == id ? !item.selected : item.selected)
+          }
+        });
+        this.setState({data: nextState});
+      },
+      checkAll: function(){
+        // var checks = this.refs.allcheck.getDOMNode().checked;
+        var checks = this.refs.allcheck.checked;
+        var nextState = this.state.data.map(function(item){
+          return {id: item.id, selected: checks}
+        });
+        this.setState({data: nextState});
+      },
+      render: function(){
+        var checks = this.state.data.map(function(item){
+          return (
+            // react.js:20478 Warning: Each child in an array or iterator should have a unique "key" prop.
+            // Check the render method of `Box`. See https://fb.me/react-warning-keys for more information.
+            <div key={item.id}>
+              <input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this, item.id)} />
+                {item.id}<br />
+            </div>
+          );
+        }.bind(this));
+        return (
+          <form>
+            <input type="checkbox" ref="allcheck" onChange={this.checkAll} />All Check
+            {checks}
+          </form>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <Box />,
+      document.getElementById('content')
+    )
+
+  </script>
+
+</body>
+</html>

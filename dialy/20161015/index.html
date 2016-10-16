@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+  <title>react sample</title>
+</head>
+<body>
+  <div id="content"></div>
+
+  <script type="text/javascript">
+    var l = console.log;
+    var unique_array = function(ar, k){
+      var ks = [];
+      ar.forEach(function(v){
+        ks.push(v[k]);
+      });
+      return new Set(ks)
+    };
+  </script>
+  <script type="text/babel">
+    var Comment = React.createClass({
+      render: function(){
+        return (
+          <div className="comment" key={this.props.id}>
+            <li>{this.props.children}</li>
+          </div>
+        );
+      }
+    });
+    var Box = React.createClass({
+      __id: 4, // this.state.data.length
+      getInitialState: function(){
+        return {data: [
+          {id: 1, text: "comment 1", category: "a"},
+          {id: 2, text: "comment 2", category: "b"},
+          {id: 3, text: "comment 3", category: "a"},
+          {id: 4, text: "comment 4", category: "b"}
+        ]}
+      },
+      handleCommentSubmit: function(data){
+        this.__id++;
+        data.id = this.__id;
+        this.state.data.push(data)
+        this.setState({data: this.state.data});
+      },
+      render: function(){
+        var nodes = [];
+        this.state.data.forEach(function(comment){
+          nodes.push(
+            <Comment key={comment.id}>
+              <ul>{comment.text}</ul>
+            </Comment>
+          );
+        });
+        // react.js:20478 Warning: Each child in an array or iterator should have a unique "key" prop.
+        // Check the render method of `Box`. See https://fb.me/react-warning-keys for more information.
+        var categories = unique_array(this.state.data, 'category')
+        var checkboxes = [];
+        categories.forEach(function(category){
+          checkboxes.push(<Checkbox category={category} />)
+        })
+        return (
+          <div className="box">
+            {nodes}
+            {checkboxes}
+            <Form onCommentSubmit={this.handleCommentSubmit}/>
+          </div>
+        );
+      }
+    });
+    var Checkbox = React.createClass({
+      // getInitialState: function(){
+      //   return {checked: false}
+      // },
+      render: function(){
+        return (
+        <p>
+          {this.props.category}
+          <input type="checkbox" checked={this.props.checked} onChange={this.handleCheckbox}/>
+        </p>
+        );
+      },
+    });
+    var Form = React.createClass({
+      getInitialState: function(){
+        return {text: ''}
+      },
+      handleText: function(ev){
+        // this.setState({text: ev.target.value});
+        this.setState({text: this.refs.Text.value});
+      },
+      handleSubmit: function(ev){
+        ev.preventDefault();
+        var text = this.state.text;
+        this.props.onCommentSubmit({id: null, text: text, category: null})
+        this.setState({text: ''});
+      },
+      render: function(){
+        return (
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" ref='Text' value={this.state.text} onChange={this.handleText}/>
+            <input type="submit" value="submit" />
+          </form>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <Box />,
+      document.getElementById('content')
+    )
+
+  </script>
+
+</body>
+</html>
