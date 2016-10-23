@@ -1,0 +1,25 @@
+{
+  "name": "react_es",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "json": "^9.0.4",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "build-browserify": "node ./node_modules/browserify/bin/cmd.js -t babelify main.js -o bundle.js",
+    "build-webpack": "node ./node_modules/webpack/bin/webpack.js main.js bundle.js --module-bind 'js=babel-loader'",
+    "build-webpack-and-watch": "node ./node_modules/webpack/bin/webpack.js main.js bundle.js --module-bind 'js=babel-loader' -d --watch"
+  },
+  "author": "",
+  "license": "Apache 2"
+}
