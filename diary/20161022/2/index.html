@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
+  <style type='text/css'>
+    .enabled {
+      background-color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <ul class='comments'>
+    <li class='comment enabled'>initial comment 1</li>
+    <li class='comment'>initial comment 2</li>
+  </ul>
+
+  <form>
+    <input type="text" id='input_text' />
+    <input type="checkbox" id='checked' />
+    <input type="submit" id='submit_button' value="post it" />
+  </form>
+
+  <script type="text/javascript">
+    var ns = {};
+    ns.data = [
+//      {comment: 'initial comment 1', enabled: true},
+//      {comment: 'initial comment 2', enabled: false},
+    ];
+    ns.initialize = function(){
+      ns.deserialize();
+      ns.refresh();
+    }
+    ns.refresh = function(){
+      $('ul > li').remove();
+      ns.data.forEach(function(v){
+        var node = ns.serialize(v);
+        $('.comments').append(node);
+      });
+    }
+
+    ns.createLi = function(d){
+      var li = $('<li></li>')
+      li.text(d.comment);
+      if (d.enabled) { li.addClass('enabled')};
+      return li;
+    }
+
+    ns.serialize = function(d){
+      return ns.createLi(d);
+    };
+    ns.deserialize = function(){
+      var data = [];
+      $('.comment').each(function(i, v){
+        var comment = $(v).text();
+        var enabled = $(v).hasClass('enabled');
+        data.push({comment: comment, enabled: enabled});
+      });
+      ns.data = data;
+    }
+
+    $(function(){
+      $('#submit_button').on('click', function(ev){
+        ev.preventDefault();
+        var comment = $('#input_text').val();
+        var checked = $('#checked').prop('checked');
+        ns.data.push({comment: comment, enabled: checked});
+        ns.refresh();
+      });
+      ns.initialize();
+    }
+    );
+  </script>
+
+</body>
+</html>
