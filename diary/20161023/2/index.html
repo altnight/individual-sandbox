@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
+  <style type='text/css'>
+    .enabled {
+      background-color: #cccccc;
+    }
+  </style>
+  <script src="./main.js"></script>
+</head>
+<body>
+  <div id='container'>
+    <ul class="comments">
+      <span>list1(DOM)</span>
+      <li class="comment">test 1</li>
+    </ul>
+    <ul class="comments">
+      <span>list2(DOM)</span>
+      <li class="comment enabled">test 2</li>
+    </ul>
+  </div>
+
+  <form>
+    <input type="text" id='input_text' />
+    <input type="checkbox" id='checked' />
+    <input type="submit" id='submit_button' value="post it" />
+  </form>
+  <script type="text/javascript">
+    $(function(){
+      var data = [
+        {
+          "name": "list1(data)",
+          "comments": [
+            {"comment": "initial comment 1", "enabled": true},
+            {"comment": "initial comment 2", "enabled": false}
+          ]
+        },
+        {
+          "name": "list2(data)",
+          "comments": [
+            {"comment": "initial comment 3", "enabled": false},
+            {"comment": "initial comment 4", "enabled": true}
+          ]
+        }
+      ];
+      $('#submit_button').on('click', function(ev){
+        ev.preventDefault();
+        var comment = $('#input_text').val();
+        var checked = $('#checked').prop('checked');
+        ns.data[0]["comments"].push({comment: comment, enabled: checked});
+        ns.refresh();
+      });
+      data = null
+      var ns = new NS('#container', data);
+      ns.initialize()
+    });
+  </script>
+
+
+</body>
+</html>
