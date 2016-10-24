@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+  <style type='text/css'>
+    .enabled {
+      background-color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <div id='container'></div>
+  <script id="template" type="x-tmpl-mustache">
+    {{#result}}
+    <ul class="comments">
+      <span>{{title}}</span>
+      {{#comments}}
+      <li class="comment {{#enabled}}enabled{{/enabled}}">{{comment}}</li>
+      {{/comments}}
+    </ul>
+    {{/result}}
+  </script>
+  <script type="text/javascript">
+    var data = {
+      "result": [
+        { "title": "Luke",
+          "comments": [
+            {"enabled": true, "comment": "comment text 1"},
+            {"enabled": false, "comment": "comment text 2"}
+          ]
+        },
+        {"title": "Take",
+          "comments": [
+            {"enabled": false, "comment": "comment text 3"},
+            {"enabled": true, "comment": "comment text 4"}
+          ]
+        }
+      ]
+    }
+    var template = $('#template').html();
+    Mustache.parse(template);
+    var rendered = Mustache.render(template, data);
+    $("#container").html(rendered);
+  </script>
+</body>
+</html>
