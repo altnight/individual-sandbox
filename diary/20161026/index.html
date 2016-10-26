@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+  <style type='text/css'>
+    .enabled {
+      background-color: #cccccc;
+    }
+  </style>
+  <script src="./main.js"></script>
+</head>
+<body>
+
+  <div id='container'></div>
+  <form>
+    <input type="text" id='input_text' />
+    <input type="checkbox" id='checked' />
+    <input type="text" id='ul_name' />
+    <input type="submit" id='submit_button' value="post it" />
+  </form>
+
+  <script id="template" type="x-tmpl-mustache">
+    {{#results}}
+    <ul class="comments">
+      <span>{{name}}</span>
+      {{#comments}}
+      <li class="comment {{#enabled}}enabled{{/enabled}}">{{comment}}</li>
+      {{/comments}}
+    </ul>
+    {{/results}}
+  </script>
+  <script type="text/javascript">
+    $(function(){
+      var data = {
+        "results": [
+          {
+            "name": "list1(data)",
+            "comments": [
+              {"comment": "initial comment 1", "enabled": true},
+              {"comment": "initial comment 2", "enabled": false}
+            ]
+          },
+          {
+            "name": "list2(data)",
+            "comments": [
+              {"comment": "initial comment 3", "enabled": false},
+              {"comment": "initial comment 4", "enabled": true}
+            ]
+          }
+        ]
+      }
+      var ns = new NS('#container', data);
+      ns.init();
+    });
+  </script>
+
+</body>
+</html>
