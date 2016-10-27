@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.min.js"></script>
+  <style type='text/css'>
+    .enabled {
+      background-color: #cccccc;
+    }
+  </style>
+  <script src="./main.js"></script>
+</head>
+<body>
+
+  <div id='app'>
+    <input type='text' v-model='newComment.comment' v-on:keyup.enter='addItem'/>
+    <input type='checkbox' v-model='newComment.enabled' />
+    <ul>
+      <li v-for='list in results'>
+        <span>{{list.name}}</span>
+        <input type="radio" name="enable" v-model='newComment.list' value="{{$index}}"/>
+      </li>
+    </ul>
+    <input type="submit" value="post it" v-on:click='addItem'/>
+
+    <div class="comments" v-for='list in results'>
+      <span>{{list.name}}</span>
+      <ul v-for='comment in list.comments'>
+        <li v-bind:class="{'enabled': comment.enabled}">{{comment.comment}}</li>
+      </ul>
+    </div>
+  </div>
+  <script type='text/javascript'>
+    document.addEventListener('DOMContentLoaded', function(){
+      vm.init();
+    });
+  </script>
+
+</body>
+</html>
