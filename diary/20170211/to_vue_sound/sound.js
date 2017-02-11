@@ -30,9 +30,6 @@ Vue.component('sound', {
     }
   },
   methods: {
-    toggleMute: function() {
-      this.muted ? this.muted = false : this.muted = true;
-    },
     loadSound: function() {
       this.sounds.forEach(function(sound) {
         // for gh-pages
@@ -64,7 +61,7 @@ Vue.component('sound', {
   },
   watch: {
     volume: function(val) {
-      if (!this.sound || !this.soundInstance) return
+      if (!this.sound || !this.soundInstance) return 0
 
       this.soundInstance.setVolume(val);
     }
