@@ -10,12 +10,8 @@ Vue.component('sound', {
     return {
       sounds: [
         {
-          id: 'Some',
-          path: 'assets/Some.mp3'
-        },
-        {
-          id: 'Other',
-          path: 'assets/Other.mp3'
+          id: null, // Some
+          path: null, // 'assets/Some.mp3'
         },
       ],
       sound: null,
@@ -39,7 +35,8 @@ Vue.component('sound', {
     },
     loadSound: function() {
       this.sounds.forEach(function(sound) {
-        createjs.Sound.registerSound(sound.path, sound.id);
+        // for gh-pages
+        // createjs.Sound.registerSound(sound.path, sound.id);
       })
     },
     playSound: function() {
