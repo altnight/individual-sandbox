@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tweenjs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+</head>
+<body>
+
+  <div style="position: absolute;">
+    <div id="el"></div>
+  </div>
+
+  <script>
+  function init(){
+    var el = document.getElementById('el')
+    console.dir(el)
+
+    var pos = {x: 0, y: 0}
+    var tween1 = new TWEEN.Tween(pos)
+        .to({ x: 400, y: 400 }, 3*1000)
+        .easing(TWEEN.Easing.Quadratic.In)
+        .onUpdate(function() {
+            console.log(this.x, this.y);
+            el.style.left = Math.round(this.x) + 'px';
+            el.style.top = Math.round(this.y) + 'px';
+        })
+        //.delay(1000)
+        //.repeat(10)
+        //.start();
+
+      var tween2 = new TWEEN.Tween(pos)
+      .to({ x: 800, y: 0 }, 2*1000)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate(function() {
+          el.style.left = Math.round(this.x) + 'px';
+          el.style.top = Math.round(this.y) + 'px';
+      })
+      //.delay(1000)
+      //.repeat(10)
+      //.start();
+
+      var tween3 = new TWEEN.Tween(pos)
+      .to({ x: 0, y: 0 }, 1*1000)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate(function() {
+          el.style.left = Math.round(this.x) + 'px';
+          el.style.top = Math.round(this.y) + 'px';
+      })
+
+      tween1.chain(tween2);
+      tween2.chain(tween3);
+      tween3.chain(tween1);
+      tween1.start();
+  }
+
+  function animate(time) {
+      requestAnimationFrame(animate);
+      TWEEN.update(time);
+  }
+
+  init()
+  animate()
+
+  </script>
+  <style>
+    #el {
+      border-radius: 100px 25px 50px 50px / 50px 25px 50px 25px;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      float: left;
+      display: inline-block;
+      color: red;
+      background-color: black;
+    }
+  </style>
+</body>
+</html>
