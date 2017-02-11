@@ -17,6 +17,8 @@
     <input type="range" min="10" max="500" step="50" v-model="height">
     <input type="range" min="0" max="50" step="10" v-model="radius">
     <button @click.prevent="addBox">addBox</button>
+    <a href="https://github.com/altnight/individual-sandbox/tree/master/diary/20170211/to_vue">repo</a>
+
     <Box v-for="box in boxes"
          :width="box.width"
          :height="box.height"
