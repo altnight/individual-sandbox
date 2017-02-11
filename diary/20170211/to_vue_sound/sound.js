@@ -46,40 +46,20 @@ Vue.component('sound', {
       this.soundInstance = createjs.Sound.play(this.sound.id);
     },
     togglePan: function() {
-      if (this.soundInstance.getPan()) {
-        this.soundInstance.setPan(false);
-        this.pan = false;
-      } else {
-        this.soundInstance.setPan(true);
-        this.pan = true;
-      }
+      this.soundInstance.getPan() ?  this.soundInstance.setPan(false) : this.soundInstance.setPan(true);
+      this.pan = this.soundInstance.getPan();
     },
     toggleLoop: function() {
-      if (this.soundInstance.getLoop()) {
-        this.soundInstance.setLoop(false)
-        this.loop = false;
-      } else {
-        this.soundInstance.setLoop(true);
-        this.loop = true;
-      }
+      this.soundInstance.getLoop() ?  this.soundInstance.setLoop(false) : this.soundInstance.setLoop(true);
+      this.loop = this.soundInstance.getLoop();
     },
     toggleMuted: function() {
-      if (this.soundInstance.getMuted()) {
-        this.soundInstance.setMuted(false)
-        this.muted = false
-      } else {
-        this.soundInstance.setMuted(true);
-        this.muted = true
-      }
+      this.soundInstance.getMuted() ?  this.soundInstance.setMuted(false) : this.soundInstance.setMuted(true);
+      this.muted = this.soundInstance.getMuted()
     },
     togglePaused: function() {
-      if (this.soundInstance.getPaused()) {
-        this.soundInstance.setPaused(false)
-        this.paused = false
-      } else {
-        this.soundInstance.setPaused(true);
-        this.paused = true
-      }
+      this.soundInstance.getPaused() ? this.soundInstance.setPaused(false) : this.soundInstance.setPaused(true);
+      this.paused = this.soundInstance.getPaused()
     },
   },
   watch: {
