@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tweenjs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+  <script src="./app.js"></script>
+  <script src="./box.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div id="app">
+    <input type="range" min="10" max="500" step="50" v-model="width">
+    <input type="range" min="10" max="500" step="50" v-model="height">
+    <input type="range" min="0" max="50" step="10" v-model="radius">
+    <button @click.prevent="addBox">addBox</button>
+    <Box v-for="box in boxes"
+         :width="box.width"
+         :height="box.height"
+         :radius="box.radius"></Box>
+  </div>
+
+  <script type="x/template" id="box-template">
+    <div ref="box" class="box"></div>
+  </script>
+</body>
+</html>
