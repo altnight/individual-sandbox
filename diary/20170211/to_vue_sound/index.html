@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tweenjs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+  <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
+  <script src="./app.js"></script>
+  <script src="./box.js"></script>
+  <script src="./sound.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div id="app">
+    <input type="range" min="10" max="500" step="50" v-model="width">
+    <input type="range" min="10" max="500" step="50" v-model="height">
+    <input type="range" min="0" max="50" step="10" v-model="radius">
+    <button @click.prevent="addBox">addBox</button>
+    <a href="https://github.com/altnight/individual-sandbox/tree/master/diary/20170211/to_vue">repo</a>
+
+    <Box v-for="box in boxes"
+         :width="box.width"
+         :height="box.height"
+         :radius="box.radius"></Box>
+    <Sound></Sound>
+  </div>
+
+  <script type="x/template" id="sound-template">
+    <div ref="sound">
+      <button @click.prevent="playSound">Play Sound</button>
+      <span><button @click.prevent="togglePan">pan</button>: {{ pan }}</span>
+      <span><button @click.prevent="toggleLoop">loop</button>: {{ loop }}</span>
+      <span><button @click.prevent="toggleMuted">muted</button>: {{ muted }}</span>
+      <span><button @click.prevent="togglePaused">paused</button>: {{ paused }}</span>
+      <input type="range" min="0" max="1" step="0.1" v-model="volume"> {{ volumeDisplay }}
+      <select v-model="sound">
+        <option :value="s" v-for="s in sounds">{{ s }}</option>
+      </select>
+    </div>
+  </script>
+
+  <script type="x/template" id="box-template">
+    <div ref="box" class="box">
+    </div>
+  </script>
+</body>
+</html>
