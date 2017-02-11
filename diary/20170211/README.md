@@ -23,3 +23,12 @@
 ### DEMO
 
 - https://altnight.github.io/individual-sandbox/diary/20170211/to_vue
+
+## (3) (TweenJS + ) Vue + SoundJS
+
+- soundjs to component
+- http://www.createjs.com/getting-started/soundjs
+
+### DEMO
+
+- https://altnight.github.io/individual-sandbox/diary/20170211/to_vue_sound
