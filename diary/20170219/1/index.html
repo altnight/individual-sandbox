@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>scroll animate</title>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+  <section id="content1">
+    <h2>content1</h2>
+    <ul>
+      <li><a href="#content1">content1</a></li>
+      <li><a href="#content2">content2</a></li>
+      <li><a href="#content3">content3</a></li>
+      <li><a href="#content4">content4</a></li>
+      <li><a href="#content5">content5</a></li>
+    </ul>
+  </section>
+  <section id="content2">
+    <h2>content2</h2>
+    <ul>
+      <li><a href="#content1">content1</a></li>
+      <li><a href="#content2">content2</a></li>
+      <li><a href="#content3">content3</a></li>
+      <li><a href="#content4">content4</a></li>
+      <li><a href="#content5">content5</a></li>
+    </ul>
+  </section>
+  <section id="content3">
+    <h2>content3</h2>
+    <ul>
+      <li><a href="#content1">content1</a></li>
+      <li><a href="#content2">content2</a></li>
+      <li><a href="#content3">content3</a></li>
+      <li><a href="#content4">content4</a></li>
+      <li><a href="#content5">content5</a></li>
+    </ul>
+  </section>
+  <section id="content4">
+    <h2>content4</h2>
+    <ul>
+      <li><a href="#content1">content1</a></li>
+      <li><a href="#content2">content2</a></li>
+      <li><a href="#content3">content3</a></li>
+      <li><a href="#content4">content4</a></li>
+      <li><a href="#content5">content5</a></li>
+    </ul>
+  </section>
+  <section id="content5">
+    <h2>content5</h2>
+    <ul>
+      <li><a href="#content1">content1</a></li>
+      <li><a href="#content2">content2</a></li>
+      <li><a href="#content3">content3</a></li>
+      <li><a href="#content4">content4</a></li>
+      <li><a href="#content5">content5</a></li>
+    </ul>
+  </section>
+
+  <style lang="css">
+    section {
+      margin: 0 0 100% 0;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(function() {
+      var offsetY = -10;
+      var animationTime = 1 * 1000;
+
+      $(document).on('click', 'a[href^="#"]', function() {
+        var $target = $(this.hash);
+        if (!$target.length) return ;
+        var targetY = $target.offset().top+offsetY;
+        $('html,body').animate({scrollTop: targetY}, animationTime, 'swing');
+        window.history.pushState(null, null, this.hash);
+        return false;
+      });
+    });
+  </script>
+</body>
+</html>

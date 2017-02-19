@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>box</title>
+  <link rel="stylesheet" href="../assets/normalize.css">
+</head>
+<body>
+<section class="box">header</section>
+<section class="box">content1</section>
+<section class="box">content2</section>
+<section class="box">content3</section>
+<section class="box">footer</section>
+
+<style lang="css">
+  .box {
+    width: calc(100% - 10 * 2px); /* margin left + margin right */
+    height: 200px;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    margin: 30px 10px;
+    padding: 20px 10px;
+
+    border: 1px solid black;
+    background-color: cyan;
+  }
+</style>
+</body>
+</html>

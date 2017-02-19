@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>box</title>
+  <link rel="stylesheet" href="../assets/normalize.css">
+</head>
+<body>
+
+<section class="box">header</section>
+
+<section class="box content1">
+  <div class="side">side content</div>
+  <div class="main">main content</div>
+</section>
+<section class="box content2">
+  <div class="side">side content</div>
+  <div class="main">main content</div>
+</section>
+
+<section class="box content3">
+  <div class="side">side content</div>
+  <div class="main">main content</div>
+</section>
+<section class="box content4">
+  <div class="side">side content</div>
+  <div class="main">main content</div>
+</section>
+
+<section class="box">footer</section>
+
+<style lang="css">
+  .box {
+    width: calc(100% - 10 * 2px); /* margin left + margin right */
+    height: 200px;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    margin: 30px 10px;
+    padding: 20px 10px;
+
+    border: 1px solid black;
+    background-color: cyan;
+  }
+
+  .side {
+    width: 50%;
+    height: 100%;
+    background-color: silver;
+  }
+
+  .main {
+    width: 50%;
+    height: 100%;
+    background-color: darkred;
+  }
+
+  .content1 .side {
+    float: left;
+  }
+
+  .content1 .main {
+    float: right;
+  }
+
+  .content2 .side {
+    float: right;
+  }
+
+  .content2 .main {
+    float: left;
+  }
+
+  .box.content3 {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .box.content4 {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+</style>
+</body>
+</html>
