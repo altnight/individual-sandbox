@@ -1,3 +1,6 @@
+# global
+.DS_store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -95,3 +98,8 @@ bundle.js.map
 
 ## IDE
 .idea
+
+# diary
+diary/20171022/chromedriver
+diary/20171022/screenshots
+
