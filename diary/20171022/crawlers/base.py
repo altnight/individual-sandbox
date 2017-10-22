@@ -56,4 +56,3 @@ class BaseCrawler:
                 Step(self.driver).run()
         finally:
             self.driver.quit()
-

@@ -1,5 +1,4 @@
 from selenium.webdriver.common.keys import Keys
-
 from crawlers.base import BaseCrawler, Step
 
 BASE_URL = 'http://localhost:5000'
@@ -51,6 +50,7 @@ class Mypage(LoginStep):
     def post_process(self):
         self.take_screenshot()
         self.logout()
+
 
 class SampleCrawler(BaseCrawler):
     def __init__(self, args):
