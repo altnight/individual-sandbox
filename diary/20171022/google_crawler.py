@@ -1,64 +1,54 @@
 """
 - https://qiita.com/orangain/items/db4594113c04e8801aad
 """
-from pathlib import Path
-import time
-import inspect
+# import time
+import argparse
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-
-GOOGLE_CHROME_BINARY_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-SCREEN_SHOTS_DIR = 'screenshots'
+from crawler import BaseCrawler, Step
 
 
-class GoogleCrowler:
-    def __init__(self, *a, **kw):
-        self.driver = None
-        self._initialize()
+class SearchResult(Step):
+    verbose_name = '検索結果一覧'
+
+    def pre_process(self):
+        self.driver.get('https://google.co.jp/')
+        assert 'Google' in self.driver.title
 
     def process(self):
-        for i in inspect.getmembers(self):
-            if i[0].startswith("process_"):
-                eval("self.{}()".format(i[0]))
-        # self.process_result()
-        # self.process_first()
+        self.enter(self.driver.find_element_by_name('q'), 'Python')
 
-    def process_result(self):
+    def post_process(self):
+        self.take_screenshot()
+
+class SearchResultFirst(Step):
+    verbose_name = '検索結果1件目'
+
+    def pre_process(self):
         self.driver.get('https://google.co.jp/')
         assert 'Google' in self.driver.title
+        self.enter(self.driver.find_element_by_name('q'), 'Python')
 
-        self._enter(self.driver.find_element_by_name('q'), 'Python')
-
-        self.driver.save_screenshot("{}.png".format(Path(SCREEN_SHOTS_DIR, inspect.currentframe().f_code.co_name)))
-
-    def process_first(self):
-        self.driver.get('https://google.co.jp/')
-        assert 'Google' in self.driver.title
-
-        self._enter(self.driver.find_element_by_name('q'), 'Python')
+    def process(self):
         self.driver.find_elements_by_css_selector("#res a")[0].click()
 
-        self.driver.save_screenshot("{}.png".format(Path(SCREEN_SHOTS_DIR, inspect.currentframe().f_code.co_name)))
+    def post_process(self):
+        self.take_screenshot()
 
-    def _enter(self, input_element, char):
-        input_element.send_keys(char)
-        input_element.send_keys(Keys.RETURN)
 
-    def _initialize(self):
-        options = Options()
-        options.add_argument('--window-size={},{}'.format(1024, 1920)) # 768
-        options.binary_location = GOOGLE_CHROME_BINARY_PATH
-        options.add_argument('--headless')
-        self.driver = webdriver.Chrome(chrome_options=options)
+class GoogleCrowler(BaseCrawler):
+    def __init__(self, args):
+        super().__init__(args)
+        self.steps = [SearchResult, SearchResultFirst]
 
-def main():
-    c = GoogleCrowler()
-    try:
-        c.process()
-    finally:
-        c.driver.quit()
+
+def main(args):
+    c = GoogleCrowler(args)
+    c.run()
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--width', dest='width', default=1024, type=int)
+    parser.add_argument('--height', dest='height', default=1920, type=int)
+    parser.add_argument('--debug', dest='debug', default=False, action='store_true')
+    args = parser.parse_args()
+    main(args)
