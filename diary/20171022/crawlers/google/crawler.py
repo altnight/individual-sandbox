@@ -1,17 +1,13 @@
-"""
-- https://qiita.com/orangain/items/db4594113c04e8801aad
-"""
-# import time
-import argparse
+from crawlers.base import BaseCrawler, Step
 
-from crawler import BaseCrawler, Step
+BASE_URL = 'https://google.co.jp'
 
 
 class SearchResult(Step):
     verbose_name = '検索結果一覧'
 
     def pre_process(self):
-        self.driver.get('https://google.co.jp/')
+        self.driver.get(BASE_URL + '/')
         assert 'Google' in self.driver.title
 
     def process(self):
@@ -24,7 +20,7 @@ class SearchResultFirst(Step):
     verbose_name = '検索結果1件目'
 
     def pre_process(self):
-        self.driver.get('https://google.co.jp/')
+        self.driver.get(BASE_URL + '/')
         assert 'Google' in self.driver.title
         self.enter(self.driver.find_element_by_name('q'), 'Python')
 
@@ -35,20 +31,7 @@ class SearchResultFirst(Step):
         self.take_screenshot()
 
 
-class GoogleCrowler(BaseCrawler):
+class GoogleCrawler(BaseCrawler):
     def __init__(self, args):
         super().__init__(args)
         self.steps = [SearchResult, SearchResultFirst]
-
-
-def main(args):
-    c = GoogleCrowler(args)
-    c.run()
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--width', dest='width', default=1024, type=int)
-    parser.add_argument('--height', dest='height', default=1920, type=int)
-    parser.add_argument('--debug', dest='debug', default=False, action='store_true')
-    args = parser.parse_args()
-    main(args)

@@ -1,3 +1,9 @@
 ```
 make all
+
+# make google
+# make sample
+
+# ./venv/bin/python server.py
+# ./venv/bin/python sample_crawler.py --width 100 --height 100 --debug
 ```
