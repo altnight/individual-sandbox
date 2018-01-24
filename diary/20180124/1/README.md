@@ -1,8 +1,8 @@
-# django を 1ファイルで試す
+# django を 1ファイルで動かす
 
-`settings.configure`してから  `django.setup`  すればいい。公式ドキュメントには記載されてるけど、このあたり自分では発見できなかった。
+`settings.configure`してから  `django.setup`  すればいい。2年前くらいに知ったけど、公式ドキュメントには記載されててもこのあたり自分では発見できなかった。
 
-モデルを使った場合の tableの作り方がわからなくて `call_command('migrate')` をするのかと思ったけど、 connection からつくれる模様。知らなかった。
+あとモデルを使った場合の tableの作り方がわからなくて `call_command('migrate')` をするのかと思ったけど、 connection からつくれる模様。知らなかった。
 
 今回も Makefile を置いておいた。 `make all` で試せる。
 
