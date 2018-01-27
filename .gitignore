@@ -102,4 +102,5 @@ bundle.js.map
 # diary
 diary/20171022/chromedriver
 diary/20171022/screenshots
+.vagrant
 
