@@ -1,0 +1,14 @@
+{
+  "name": "20180129",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "jsdom": "^11.6.1",
+    "vue": "^2.5.13"
+  }
+}
