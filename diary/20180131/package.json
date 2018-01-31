@@ -1,0 +1,13 @@
+{
+  "name": "20180131",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "jsdom": "^11.6.1",
+    "vue": "^2.5.13"
+  }
+}
