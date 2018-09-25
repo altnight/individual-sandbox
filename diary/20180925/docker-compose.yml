@@ -1,0 +1,9 @@
+version: "3"
+services:
+  amesh:
+    build: .
+    volumes:
+      - .:/code
+    environment:
+      TZ: Asia/Tokyo
+
